@@ -18,8 +18,7 @@ import java.util.Properties;
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "com.autowebinar.core.web",
-
+        "com.scrumcreator.admin.core.web"
 })
 @EnableWebMvc
 @PropertySource("classpath:application.properties")

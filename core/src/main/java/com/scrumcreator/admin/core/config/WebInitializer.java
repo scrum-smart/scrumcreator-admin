@@ -14,7 +14,7 @@ import java.util.EnumSet;
  */
 public class WebInitializer implements WebApplicationInitializer {
 
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
 
         // Create the 'root' Spring application context
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
@@ -24,7 +24,7 @@ public class WebInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
         webContext.register(WebConfiguration.class);
 
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("webplanner", new DispatcherServlet(webContext));
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("scrumcreator-admin", new DispatcherServlet(webContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/api/*");
 
