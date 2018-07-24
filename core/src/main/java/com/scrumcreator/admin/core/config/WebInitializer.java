@@ -30,8 +30,8 @@ public class WebInitializer implements WebApplicationInitializer {
 
         EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
 
-        FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
-        security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+        //FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+        //security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
 
         // Manage the lifecycle of the root application context
         servletContext.addListener(new ContextLoaderListener(rootContext));

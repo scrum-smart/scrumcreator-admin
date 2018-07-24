@@ -25,9 +25,8 @@ public class AuthController extends BasicWebController {
                                @RequestParam(value = "signature") String signature,
                                Model model) {
 
-        User user = getCurrentUser();
+        User user = new User("","","","");
 
-        user.setLuxMail(luxMail);
         user.setSignature(signature);
 
         mongoOperations.save(user);

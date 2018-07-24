@@ -1,9 +1,7 @@
 package com.scrumcreator.admin.core.utils;
 
-import static com.scrumcreator.admin.core.data.ConstantVariables.*;
-
+import com.scrumcreator.admin.core.data.ScrumPractice;
 import com.scrumcreator.admin.core.data.User;
-import com.scrumcreator.admin.core.data.Webinar;
 import org.springframework.ui.Model;
 
 /**
@@ -11,22 +9,14 @@ import org.springframework.ui.Model;
  */
 public class ModelUtils {
 
-    public static void webinarToModel(Model model, Webinar webinar) {
-
-        model.addAttribute("topic", webinar.getTopicEng());
-        model.addAttribute("description", webinar.getDescriptionEng());
-        model.addAttribute("id", webinar.getId());
-        model.addAttribute("scheduled", webinar.getScheduled());
-        model.addAttribute("posted", webinar.getPosted());
-        model.addAttribute("sentForApproval", webinar.getSentForApproval());
-        model.addAttribute("gotoLink", createGotoLink(webinar));
-        model.addAttribute("gotoManageLink", createManageLink(webinar));
-        model.addAttribute("blogLink", luxtownViewLink(webinar));
-        model.addAttribute("blogEditLink", luxtownEditLink(webinar));
+    public static void webinarToModel(Model model, ScrumPractice scrumPractice) {
+        model.addAttribute("topic", scrumPractice.getPracticeIndex());
+        model.addAttribute("description", scrumPractice.getScrumElement());
+        model.addAttribute("id", scrumPractice.getId());
     }
 
-    public static void webinarToModel(Model model, Webinar webinar, User currentUser) {
-        webinarToModel(model, webinar);
+    public static void webinarToModel(Model model, ScrumPractice scrumPractice, User currentUser) {
+        webinarToModel(model, scrumPractice);
         model.addAttribute("userImage", currentUser.getImage());
         model.addAttribute("userId", currentUser.getId());
 
@@ -35,7 +25,6 @@ public class ModelUtils {
     public static void userToModel(Model model, User user) {
         model.addAttribute("userId", user.getId());
         model.addAttribute("userImage", user.getImage());
-        model.addAttribute("luxEmail", user.getLuxMail());
         model.addAttribute("signature", user.getSignature());
     }
 }

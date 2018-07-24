@@ -15,12 +15,12 @@ public class SpringMongoConfig extends AbstractMongoConfiguration {
 
     @Override
     public String getDatabaseName() {
-        return "webinar";
+        return "scrumcreator";
     }
 
     @Override
     @Bean
-    public Mongo mongo() throws Exception {
-        return new MongoClient(new MongoClientURI("mongodb://user:user@ds049661.mlab.com:49661/webinar"));
+    public MongoClient mongoClient() {
+        return new MongoClient(new MongoClientURI("mongodb://user:user12@ds145881.mlab.com:45881/scrumcreator"));
     }
 }

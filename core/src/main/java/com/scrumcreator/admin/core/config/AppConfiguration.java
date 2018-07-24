@@ -10,8 +10,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "com.scrumcreator.admin.core.data",
-        "com.scrumcreator.admin.core.security"
+        "com.scrumcreator.admin.core.data"
 })
 @PropertySource("classpath:application.properties")
 public class AppConfiguration {

@@ -17,7 +17,6 @@ public class User {
     String image;
     String googleId;
     String signature;
-    String luxMail;
 
     public User(String username, String email, String image, String googleId) {
         this.username = username;
@@ -32,14 +31,6 @@ public class User {
 
     public void setSignature(String signature) {
         this.signature = signature;
-    }
-
-    public String getLuxMail() {
-        return luxMail;
-    }
-
-    public void setLuxMail(String luxMail) {
-        this.luxMail = luxMail;
     }
 
     public String getId() {

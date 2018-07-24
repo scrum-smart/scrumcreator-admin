@@ -1,7 +1,7 @@
 package com.scrumcreator.admin.core.web;
 
+import com.scrumcreator.admin.core.data.ScrumPractice;
 import com.scrumcreator.admin.core.data.User;
-import com.scrumcreator.admin.core.data.Webinar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Controller;
@@ -19,9 +19,9 @@ public class DataController {
 
     @RequestMapping("/webinars")
     @ResponseBody
-    public List<Webinar> webinars() {
+    public List<ScrumPractice> scrumFramework() {
         System.out.println("reached");
-        return mongoOperations.findAll(Webinar.class);
+        return mongoOperations.findAll(ScrumPractice.class);
     }
 
     @RequestMapping("/users")

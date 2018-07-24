@@ -1,0 +1,12 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 392164351122452
+            client-secret: 0fde4a29a8abfe8460655ce65c8b5a03
+            scope: user_posts
+          google:
+            client-id: 392164351122452
+            client-secret: 0fde4a29a8abfe8460655ce65c8b5a03
