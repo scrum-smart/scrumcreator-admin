@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<!-- The jQuery library is a prerequisite for all jqSuite products -->
+	<script type="text/ecmascript" src="/js/jquery-1.11.0.min.js"></script>
+	<!-- We support more than 40 localizations -->
+	<script type="text/ecmascript" src="/js/i18n/grid.locale-en.js"></script>
+	<!-- This is the Javascript file of jqGrid -->
+	<script type="text/ecmascript" src="/js/jquery.jqGrid.min.js"></script>
+	<script type="text/ecmascript" src="/js/jquery-ui.min.js"></script>
+	<!-- This is the localization file of the grid controlling messages, labels, etc.
+    <!-- A link to a jQuery UI ThemeRoller theme, more than 22 built-in and many more custom -->
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.css" />
+	<!-- The link to the CSS that the grid needs -->
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/ui.jqgrid.css" />
+	<meta charset="utf-8" />
+	<title>jqGrid Loading Data - Million Rows from a REST service</title>
+</head>
+<body>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#fragment-1"><span>Scrum Framework</span></a></li>
+		<li><a href="#fragment-2"><span>Scrum Strategies</span></a></li>
+	</ul>
+	<div id="fragment-1">
+		<table id="jqGrid"></table>
+		<div id="jqGridPager"></div>
+	</div>
+	<div id="fragment-2">
+		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+	</div>
+</div>
+
+<script type="text/javascript">
+		$( "#tabs" ).tabs();
+        $(document).ready(function () {
+            $("#jqGrid").jqGrid({
+                url: 'api/scrumFramework',
+                editurl: 'api/scrumFramework',
+                caption: 'Edit Scrum Practice',
+                datatype: "json",
+                colModel: [
+                	{ name: 'id', key: true, hidden: true, width: 200},
+                    { label: 'Practice Index', name: 'practiceIndex', width: 100, sortable: false, editable: true, editrules: {required: true}, editoptions: {size: 20} },
+                    { label: 'Scrum Element', name: 'scrumElement', width: 100, sortable: false,  editable: true, edittype: "select",
+                        editoptions: {
+                            value: "Product Owner:Product Owner;Development Team:Development Team;Scrum Master:Scrum Master;Sprint:Sprint;Sprint Planning:Sprint Planning;Daily Scrum:Daily Scrum;Sprint Review:Sprint Review;Sprint Retrospective:Sprint Retrospective;Product Backlog:Product Backlog;Sprint Backlog:Sprint Backlog;Increment:Increment"
+                        }  },
+                    { label: 'Scrum Rule', name: 'scrumRule', width: 100, sortable: false, editable: true, editoptions: {size: 100}},
+                    { label: 'Scrum Practice', name: 'scrumPractice', width: 1050, sortable: false, editable: true, editoptions: {size: 100}}
+                ],
+                loadonce: true,
+                onSelectRow: editRow,
+				viewrecords: true,
+                width: 1200,
+                height: 500,
+                rowNum: 200,
+                pager: "#jqGridPager",
+                grouping: true,
+                groupingView: {
+                    groupField: ["scrumElement", "scrumRule"],
+                    groupColumnShow: [true, true],
+                    groupText: ["<b>{0}</b>", "<b>{0}</b>"],
+                    groupSummary: [false, false],
+                    groupCollapse: true
+                    },
+            })
+            .navGrid("#jqGridPager", {edit:false,add:true,del:false,search:false}, {recreateForm: true, width: 700});
+
+            var lastSelection;
+
+            function editRow(id) {
+                if (id && id !== lastSelection) {
+                    var grid = $("#jqGrid");
+                    grid.jqGrid('restoreRow',lastSelection);
+                    grid.jqGrid('editRow',id, {keys: true} );
+                    lastSelection = id;
+                }
+            }
+        });
+   </script>
+<!--
+                }-->
+</body>
+</html>
