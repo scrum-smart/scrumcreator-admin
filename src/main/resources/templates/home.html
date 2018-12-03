@@ -26,19 +26,19 @@
 		<li><a href="#fragment-2"><span>Scrum Strategies</span></a></li>
 	</ul>
 	<div id="fragment-1">
-		<table id="jqGrid"></table>
-		<div id="jqGridPager"></div>
+		<table id="scrumPracticeGrid"></table>
+		<div id="scrumPracticeGridPager"></div>
 	</div>
 	<div id="fragment-2">
-		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+		<table id="scrumScenarioGrid"></table>
+		<div id="scrumScenarioGridPager"></div>
 	</div>
 </div>
 
 <script type="text/javascript">
 		$( "#tabs" ).tabs();
         $(document).ready(function () {
-            $("#jqGrid").jqGrid({
+            $("#scrumPracticeGrid").jqGrid({
                 url: 'api/scrumFramework',
                 editurl: 'api/scrumFramework',
                 caption: 'Edit Scrum Practice',
@@ -54,12 +54,12 @@
                     { label: 'Scrum Practice', name: 'scrumPractice', width: 1050, sortable: false, editable: true, editoptions: {size: 100}}
                 ],
                 loadonce: true,
-                onSelectRow: editRow,
+                onSelectRow: editScrumPracticeRow,
 				viewrecords: true,
                 width: 1200,
                 height: 500,
                 rowNum: 200,
-                pager: "#jqGridPager",
+                pager: "#scrumPracticeGridPager",
                 grouping: true,
                 groupingView: {
                     groupField: ["scrumElement", "scrumRule"],
@@ -69,13 +69,49 @@
                     groupCollapse: true
                     },
             })
-            .navGrid("#jqGridPager", {edit:false,add:true,del:false,search:false}, {recreateForm: true, width: 700});
+            .navGrid(
+            	"#scrumPracticeGridPager",
+            	{edit:false,add:true,del:false,search:false},
+            	{recreateForm: true, width: 700}
+            );
+
+			$("#scrumScenarioGrid").jqGrid({
+                url: 'api/scrumScenario',
+                editurl: 'api/scrumScenario',
+                caption: 'Edit Scrum Scenario',
+                datatype: "json",
+                colModel: [
+                	{ name: 'id', key: true, hidden: true, width: 200},
+                    { label: 'Scrum Scenario Name', name: 'scenarioName', width: 100, sortable: false, editable: true, editrules: {required: true}, editoptions: {size: 20} }
+                ],
+                loadonce: true,
+                onSelectRow: editScrumScenarioRow,
+				viewrecords: true,
+                width: 1200,
+                height: 500,
+                rowNum: 200,
+                pager: "#scrumScenarioGridPager",
+            })
+            .navGrid(
+            	"#scrumScenarioGridPager",
+            	{edit:false,add:true,del:false,search:false},
+            	{recreateForm: true, width: 700}
+            );
 
             var lastSelection;
 
-            function editRow(id) {
+            function editScrumPracticeRow(id) {
                 if (id && id !== lastSelection) {
-                    var grid = $("#jqGrid");
+                    var grid = $("#scrumPracticeGrid");
+                    grid.jqGrid('restoreRow',lastSelection);
+                    grid.jqGrid('editRow',id, {keys: true} );
+                    lastSelection = id;
+                }
+            }
+
+           function editScrumScenarioRow(id) {
+                if (id && id !== lastSelection) {
+                    var grid = $("#scrumScenarioGrid");
                     grid.jqGrid('restoreRow',lastSelection);
                     grid.jqGrid('editRow',id, {keys: true} );
                     lastSelection = id;
@@ -83,7 +119,5 @@
             }
         });
    </script>
-<!--
-                }-->
 </body>
 </html>
